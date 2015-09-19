@@ -4,6 +4,7 @@ Renderbox::Renderbox(vec2 _position, vec2 _size, bool _border, bool _visible, ch
 	for (int i = 0; i < size.x * size.y; i++) {
 		box.push_back(fill);
 	}
+	setBorder(getBorder());
 }
 
 char Renderbox::getChar(int where) {
@@ -38,15 +39,48 @@ vec2 Renderbox::getPosition() {
 	return position;
 }
 
+void Renderbox::setPosition(vec2 pos) {
+	position = pos;
+}
+
 vec2 Renderbox::getSize() {
 	return size;
 }
 
 void Renderbox::setBorder(bool how) {
+	std::vector<char> pipes;
 	border = how;
+	if (border) {
+		pipes = { (char)186, (char)205, (char)201, (char)187, (char)200, (char)188 };
+	}
+	else {
+		pipes = { ' ', ' ', ' ', ' ', ' ', ' ' };
+	}
+	for (int x = 0; x < size.x; x++) {
+		for (int y = 0; y < size.y; y++) {
+			if (x == 0 || x == size.x - 1) {
+				setChar(pipes[0], vec2(x, y));
+			}
+			if (y == 0 || y == size.y - 1) {
+				setChar(pipes[1], vec2(x, y));
+			}
+			if (x == 0 && y == 0) {
+				setChar(pipes[2], vec2(x, y));
+			}
+			if (x == size.x - 1 && y == 0) {
+				setChar(pipes[3], vec2(x, y));
+			}
+			if (x == 0 && y == size.y - 1) {
+				setChar(pipes[4], vec2(x, y));
+			}
+			if (x == size.x - 1 && y == size.y - 1) {
+				setChar(pipes[5], vec2(x, y));
+			}
+		}
+	}
 }
 
-bool Renderbox::getBorderness() {
+bool Renderbox::getBorder() {
 	return border;
 }
 
@@ -57,3 +91,4 @@ void Renderbox::setVisibility(bool how) {
 bool Renderbox::getVisibility() {
 	return visible;
 }
+

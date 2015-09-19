@@ -17,9 +17,10 @@ public:
 	void setChar(char, vec2);
 	void writeLine(std::string, vec2);
 	vec2 getPosition();
+	void setPosition(vec2);
 	vec2 getSize();
 	void setBorder(bool);
-	bool getBorderness();
+	bool getBorder();
 	void setVisibility(bool);
 	bool getVisibility();
 };

@@ -11,7 +11,10 @@ int main() {
 	mainscreen.getBox(1)->writeLine("Kurde bele czy to dziala czy nie dziala zaraz sie dowiemy", vec2(0, 0));
 	mainscreen.addBox(Renderbox(vec2(25, 11), vec2(30, 3), true, true, ' '));
 	mainscreen.getBox(2)->writeLine("Czy chcesz kontynuowac? Y/N", vec2(1, 1));
-	mainscreen.print();
-	char a;
-	std::cin >> a;
+	
+	while (true) {
+		mainscreen.update();
+		Renderbox* box = mainscreen.getBox(0);
+		box->setBorder(!box->getBorder());
+	}
 }
