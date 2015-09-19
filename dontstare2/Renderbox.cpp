@@ -26,8 +26,10 @@ void Renderbox::writeLine(std::string line, vec2 where) {
 	int x = 0;
 	for (unsigned int i = where.y * size.x + where.x; i < box.size(); i++) {
 		if (line[x]) {
-			setChar(line[x], i);
-			x++;
+			if (!(border && (i < size.x || i % size.x == 0 || i % size.x == size.x - 1))) {
+				setChar(line[x], i);
+				x++;
+			}
 		}
 	}
 }
