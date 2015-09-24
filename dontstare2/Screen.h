@@ -6,7 +6,9 @@ class Screen {
 	std::vector<char> screen;
 	std::vector<bool> changed;
 	std::vector<Renderbox> boxes;
+	std::vector<vec2> colors;
 	void setCursor(vec2);
+	void setTextColor(vec2);
 public:
 	Screen(vec2);
 	void addBox(Renderbox);

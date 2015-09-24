@@ -9,12 +9,17 @@ class Renderbox {
 	bool border;
 	bool visible;
 	std::vector<char> box;
+	bool usesColors;
+	std::vector<vec2> colors;
 public:
 	Renderbox(vec2, vec2, bool, bool, char);
 	char getChar(int);
 	char getChar(vec2);
 	void setChar(char, int);
 	void setChar(char, vec2);
+	vec2 getColors(vec2);
+	void setColors(vec2, int);
+	void setColors(vec2, vec2);
 	void writeLine(std::string, vec2);
 	vec2 getPosition();
 	void setPosition(vec2);
@@ -23,4 +28,6 @@ public:
 	bool getBorder();
 	void setVisibility(bool);
 	bool getVisibility();
+	void useColors(bool);
+	bool doesUseColors();
 };

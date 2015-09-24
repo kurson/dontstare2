@@ -5,6 +5,7 @@
 Screen::Screen(vec2 _size) : size(_size) {
 	for (int i = 0; i < size.x * size.y; i++) {
 		screen.push_back(' ');
+		colors.push_back(vec2(7, 0));
 		changed.push_back(true);
 	}
 }
@@ -12,6 +13,11 @@ Screen::Screen(vec2 _size) : size(_size) {
 void Screen::setCursor(vec2 position) {
 	COORD p = { position.x, position.y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), p);
+}
+
+void Screen::setTextColor(vec2 colors) {
+	unsigned short wAttributes = ((unsigned)colors.y << 4) | (unsigned)colors.x;
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), wAttributes);
 }
 
 void Screen::addBox(Renderbox box) {
@@ -22,6 +28,7 @@ void Screen::print() {
 	for (int i = 0; i < screen.size(); i++) {
 		if (changed[i]) {
 			setCursor(vec2(i % size.x, i / size.x));
+			setTextColor(colors[i]);
 			changed[i] = false;
 			std::cout << screen[i];
 		}
@@ -39,6 +46,7 @@ void Screen::update() {
 					if (screen[superposition] != boxes[b].getChar(vec2(x, y))) {
 						changed[superposition] = true;
 						screen[superposition] = boxes[b].getChar(vec2(x, y));
+						colors[superposition] = boxes[b].getColors(vec2(x, y));
 					}
 				}
 			}

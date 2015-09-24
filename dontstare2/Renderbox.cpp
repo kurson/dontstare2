@@ -5,6 +5,7 @@ Renderbox::Renderbox(vec2 _position, vec2 _size, bool _border, bool _visible, ch
 		box.push_back(fill);
 	}
 	setBorder(getBorder());
+	usesColors = false;
 }
 
 char Renderbox::getChar(int where) {
@@ -21,6 +22,25 @@ void Renderbox::setChar(char what, int where) {
 
 void Renderbox::setChar(char what, vec2 where) {
 	box[where.y * size.x + where.x] = what;
+}
+
+vec2 Renderbox::getColors(vec2 where) {
+	if (usesColors) {
+		return colors[where.y * size.x + where.x];
+	}
+	else {
+		return vec2(7, 0);
+	}
+}
+
+void Renderbox::setColors(vec2 colores, int where) {
+	if (usesColors) {
+		colors[where] = colores;
+	}
+}
+
+void Renderbox::setColors(vec2 colores, vec2 where) {
+	setColors(colores, where.y * size.y + where.x);
 }
 
 void Renderbox::writeLine(std::string line, vec2 where) {
@@ -92,3 +112,18 @@ bool Renderbox::getVisibility() {
 	return visible;
 }
 
+void Renderbox::useColors(bool how) {
+	usesColors = how;
+	if (usesColors) {
+		for (int i = 0; i < size.x * size.y; i++) {
+			colors.push_back(vec2(7, 0));
+		}
+	}
+	else {
+		colors.empty();
+	}
+}
+
+bool Renderbox::doesUseColors() {
+	return usesColors;
+}
