@@ -8,4 +8,5 @@ struct vec2 {
 	vec2 operator -(const vec2&);
 	vec2 operator *(const vec2&);
 	vec2 operator /(const vec2&);
+	bool operator == (const vec2&);
 };
